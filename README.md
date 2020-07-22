@@ -5,6 +5,6 @@ vbkhathuria@gmail.com
 kalendershihab@gmail.com
 
 Guys, Join this Whatsapp group for the team. 
-https://chat.whatsapp.com/FQx5jPxUbqbF39FkdXcSIY
+https://chat.whatsapp.com/L7R2JrB8birAHSKAc5ezYb
 
 It'd be easier for discussions!
