@@ -36,7 +36,7 @@ The purpose of the web application was to offer the following:
 ## Backend:
 [Flask](https://flask.palletsprojects.com/en/1.1.x/) <br />
 [Twilio](https://www.twilio.com/) <br />
-[Flask-SOcketIO](https://flask-socketio.readthedocs.io/en/latest/) 
+[Firebase](https://firebase.google.com/) 
 
 
 ## Software Developers
