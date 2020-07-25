@@ -1,25 +1,10 @@
-import os, sys
-from flask import Flask, request
-from pymessenger import Bot
-from pprint import pprint
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
+from flask import request
 from pprint import pprint
 from datetime import datetime
-import os
-# import uuid
+from facebook_bot import app, db, bot
+import os, sys
+import random
 
-
-app = Flask(__name__)
-PAGE_ACCESS_TOKEN = os.environ.get('PAGE_ACCESS_TOKEN')
-bot = Bot(PAGE_ACCESS_TOKEN)
-
-cred = credentials.Certificate('firebase-sdk.json')
-
-firebase_admin.initialize_app(cred)
-
-db = firestore.client()
 
 @app.route('/', methods = ['GET'])
 def verify():
@@ -53,15 +38,18 @@ def webhook():
 								location = list(loc.values())[0][0]['body']
 
 								print('\n\n\n', location, '\n\n\n')
-						# doc_id = uuid.uuid1()
+						
 								doc_ref = db.collection('facebook').document(sender_id)
+								ticket_id = ' '.join([str(random.randint(0, 999)).zfill(3) for _ in range(2)])
 								doc_ref.set({
 									'sender_id': sender_id,
-									'datetime' : str(date_object),
+									'date' : str(date_object),
 									'location' : location,
 									'description' : message_text,
 									'status' : 'received',
 									'platform' : 'facebook-messenger',
+									'ticket_no' : ticket_id,
+									'media_url' : ''
 									})
 						response = "Thank you for taking your time to register this complaint. We are looking into the matter. Your ticket no. is 1234. You can track the status of your ticket here : facebook.com"
 					elif 'attachments' in messaging_event['message']:
@@ -70,13 +58,10 @@ def webhook():
 					else:
 						message_text = 'no text'
 						response = ''
-					pprint(messaging_event)
+					pprint(response)
 					bot.send_text_message(sender_id, response)
 	return "ok", 200
 
 def log(message):
 	print(message)
 	sys.stdout.flush()
-
-if __name__ == '__main__':
-	app.run(debug = True, port = 80)
