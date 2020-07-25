@@ -38,8 +38,7 @@ The purpose of the web application was to offer the following:
 [socketIO](https://socket.io/) <br />
 ## Backend:
 [Flask](https://flask.palletsprojects.com/en/1.1.x/) <br />
-[Flask-Login](https://flask-login.readthedocs.io/en/latest/) <br />
-[Flask-Sqlachemy](http://flask-sqlalchemy.pocoo.org/2.3/) <br />
+[Twilio](https://www.twilio.com/) <br />
 [Flask-SOcketIO](https://flask-socketio.readthedocs.io/en/latest/) 
 
 
