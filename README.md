@@ -18,7 +18,7 @@ This was a competitive 24-hour coding competition, where the goal was to deliver
 
 ## OUR GOAL
 The purpose of the web application was to offer the following:
-- Provide users with several options to easily post complaints
+- Provide users with several options to easily post complaints about civic issues
 - Reduce the need for installation of any extra apps
 - Make complaints easily trackable through Social Media Platforms
 - Categorize the complaints with high accuracy
@@ -37,7 +37,7 @@ The purpose of the web application was to offer the following:
 [AngularJS](https://angularjs.org) <br />
 [socketIO](https://socket.io/) <br />
 ## Backend:
-[Flask](http://flask.pocoo.org/) <br />
+[Flask](https://flask.palletsprojects.com/en/1.1.x/) <br />
 [Flask-Login](https://flask-login.readthedocs.io/en/latest/) <br />
 [Flask-Sqlachemy](http://flask-sqlalchemy.pocoo.org/2.3/) <br />
 [Flask-SOcketIO](https://flask-socketio.readthedocs.io/en/latest/) 
