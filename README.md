@@ -1,11 +1,7 @@
-# team-35
-Hey Guys let's connect! Append your mail ids here.
-vbkhathuria@gmail.com
-<br>ujjwalprakash4@gmail.com
-kalendershihab@gmail.com
-shrutiyadav2307@gmail.com
+<h1  align="center" style="text-align: center;"><span  align="center" style="color: #ff0000;"><strong><span align="center" style="color: #FF0000;"> JP MORGAN CODE FOR GOOD - TEAM 35
+</span> </strong></span></h1>
+<p style="text-align: center;">&nbsp;</p>
+<p align="center">
 
-Guys, Join this Whatsapp group for the team. 
-https://chat.whatsapp.com/L7R2JrB8birAHSKAc5ezYb
-
-It'd be easier for discussions!
+<img alt="JP Morgan CODE FOR GOOD 2020" src="/IMAGES/jp.jpg">
+</p>
