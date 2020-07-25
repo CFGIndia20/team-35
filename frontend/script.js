@@ -7,6 +7,7 @@ const changeTabs=(event,id)=>{
     xmlhttp.onreadystatechange = function() {
  if (this.readyState == 4 && this.status == 200) {
      var myObj = JSON.parse(this.responseText);
+     myObj = myObj.documents;
      console.log(myObj)
     if(myObj.length==0)
     {
@@ -16,20 +17,23 @@ const changeTabs=(event,id)=>{
      {
          for(i=0;i<myObj.length;i++)
          {
-          
-             text+=`<div class="col-lg-4 mb-4">
+            if(myObj[i].fields.platform.stringValue == id){
+                var title = myObj[i].fields.description.stringValue.substring(20) + "...";
+                var desp = myObj[i].fields.description.stringValue.substring(20) + "...";
+                text+=`<div class="col-lg-4 mb-4">
          <div class="card">
             <div class="card-header">
               ${myObj[i].category}
             </div>
             <div class="card-body">
-              <h5 class="card-title">${myObj[i].description}</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <p><i class="fas fa-map-marker-alt"></i> ${myObj[i].location}</p>
-              <a href="details.html?id=${myObj[i].id}" class="btn btn-outline-success btn-sm">View More</a>
+              <h5 class="card-title">${title}</h5>
+              <p class="card-text">${desp}</p>
+              <p><i class="fas fa-map-marker-alt"></i> ${myObj[i].fields.location.stringValue}</p>
+              <a href="details.html?id=${myObj[i].name}" class="btn btn-outline-success btn-sm">View More</a>
             </div>
           </div>
         </div>`
+            }  
          }
          document.getElementById("tab-content").innerHTML = text;
       
@@ -37,7 +41,7 @@ const changeTabs=(event,id)=>{
      }
  }
 };
-xmlhttp.open("GET",`https://cfgtest-94f3c.firebaseio.com/${id}.json`, true);
+xmlhttp.open("GET",`https://firestore.googleapis.com/v1/projects/cfgtest-36a9e/databases/(default)/documents/all-reports`, true);
 xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 xmlhttp.send();
 
