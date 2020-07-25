@@ -27,15 +27,12 @@ The purpose of the web application was to offer the following:
 
 
 
-
-
 ## Technologies Used
 ## Frontend:
 [Python 3.8.3](https://www.python.org/downloads/release/python-383/) <br />
 [HTML5](https://developer.mozilla.org/en-US/docs/Web/HTML) <br />
 [CSS (Bootstrap)](https://www.w3schools.com/bootstrap/bootstrap_ref_all_classes.asp) <br />
 [AngularJS](https://angularjs.org) <br />
-[socketIO](https://socket.io/) <br />
 ## Backend:
 [Flask](https://flask.palletsprojects.com/en/1.1.x/) <br />
 [Twilio](https://www.twilio.com/) <br />
