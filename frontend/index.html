@@ -13,8 +13,15 @@
     <title>Navbars</title>
     <script>
 
-        changeTabs=(id)=>{
+        const changeTabs=(event,id)=>{
             document.getElementById("content").innerHTML=id;
+            navlinks = document.getElementsByClassName("nav-item");
+            console.log(navlinks.length);
+            for (i = 0; i < navlinks.length; i++) {
+    navlinks[i].className = navlinks[i].className.replace("active", "");
+    console.log(navlinks[i].className)
+  }
+  event.currentTarget.className += " active";
         }
 
     </script>
@@ -33,14 +40,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#" id="whatsapp" onclick="changeTabs(this.id);">Whatsapp</a>
+                    <a class="nav-link" href="#" id="whatsapp" onclick="changeTabs(event,this.id);">Whatsapp</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" id="instagram" onclick="changeTabs(this.id);">Instagram</a>
+                    <a class="nav-link" href="#" id="instagram" onclick="changeTabs(event,this.id);">Instagram</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#" id="twitter" onclick="changeTabs(this.id);">Twitter</a>
+                    <a class="nav-link" href="#" id="twitter" onclick="changeTabs(event,this.id);">Twitter</a>
                 </li>
 
             </ul>
