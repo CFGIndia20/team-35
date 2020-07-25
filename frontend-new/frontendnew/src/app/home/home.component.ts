@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
          plotShadow: false
       },
       title : {
-         text: 'Total complaints by platform'   
+         text: 'Total complaints by category'   
       },
       tooltip : {
          pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
@@ -106,7 +106,7 @@ export class HomeComponent implements OnInit {
          plotShadow: false
       },
       title : {
-         text: 'Total complaints by category'   
+         text: 'Total complaints by platform'   
       },
       tooltip : {
          pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
