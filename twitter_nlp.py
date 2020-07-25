@@ -14,17 +14,28 @@ from sklearn.linear_model import PassiveAggressiveClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix
 import emoji
 import re
-df=pd.read_csv('cd_mumbai_complaints.csv',encoding='ISO-8859-1')
+import nltk
+import json
 
-df['description']=df['description'].astype(str)  #changing to string datatype
-df.dropna()
-print(df['description'].isnull().sum())
+import requests
+import firebase_admin
+from firebase_admin import credentials 
+#from firebase_admin import firestore
+nltk.download('words')
+words=set(nltk.corpus.words.words())
+df=pd.read_csv('cd_mumbai_complaints.csv',encoding='ISO-8859-1')
+#df=df.head(1000)
+df['created_at']=df['created_at'].astype(str)  #changing to string datatype
+df.dropna(axis=0,how='any',inplace=True)
+df=df.reset_index()
+df=df.replace([np.inf,-np.inf],np.nan)
+print(df['created_at'].isnull().sum())
 print(df.shape)
 print(df.head())
 labels=df.category_id
 print("Labels head")
 print(labels.head())
-
+print(df[df.isin([np.nan,np.inf,-np.inf]).any(1)])
 print(df.shape)
 print(df.head(300))
 contractions = { 
@@ -105,7 +116,7 @@ contractions = {
 }
 def remove_contractions(text):
     return contractions[text.lower()] if text.lower() in contractions.keys() else text
-df['description']=df['description'].apply(remove_contractions)
+df['created_at']=df['created_at'].apply(remove_contractions)
 print(df.head())
 
 def clean_dataset(text):
@@ -144,51 +155,90 @@ def clean_dataset(text):
     text = re.sub("([^\x00-\x7F])+"," ",text)
     # Remove Mojibake (also extra spaces)
     text = ' '.join(re.sub("[^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a]", " ", text).split())
+    text=''.join(w for w in nltk.wordpunct_tokenize(text) if w.lower() in words or not w.isalpha())
     return text
 
-df['description'] =df['description'].apply(clean_dataset)
+df['created_at'] =df['created_at'].apply(clean_dataset)
 print(df.head())
 print(df.shape)
 
-x_train,x_test,y_train,y_test=train_test_split(df['description'], labels, test_size=0.2, random_state=7)
+x_train,x_test,y_train,y_test=train_test_split(df['created_at'], labels, test_size=0.2, random_state=7)
 
 #DataFlair - Initialize a TfidfVectorizer
 from sklearn.feature_extraction.text import CountVectorizer
 
 vectorizer = CountVectorizer()
 vectorizer.fit(x_train)
-
+d=df.replace([np.inf,-np.inf],np.nan)
 X_train = vectorizer.transform(x_train)
 X_test  = vectorizer.transform(x_test)
+
+
+#from sklearn.neighbors import KNeighborsClassifier 
+#knn = KNeighborsClassifier(n_neighbors = 15).fit(X_train, y_train) 
+
+# accuracy on X_test 
+#accuracy = knn.score(X_test, y_test) 
+#print (accuracy )
+
+# creating a confusion matrix 
+#knn_predictions = knn.predict(X_test) 
+#print(knn_predictions)
+#cm = confusion_matrix(y_test, knn_predictions) 
+
+
 from sklearn.naive_bayes import MultinomialNB
 clf = MultinomialNB().fit(X_train, y_train)
 predicted = clf.predict(X_test)
 print(np.mean(predicted == y_test))
 from sklearn.linear_model import SGDClassifier
 clf = SGDClassifier().fit(X_train, y_train)
+
+
 predicted = clf.predict(X_test)
+
+print(predicted)
 print(np.mean(predicted == y_test))
 
-
-from sklearn.model_selection import GridSearchCV
-from sklearn.model_selection import ParameterGrid
-import parfit.parfit as pf
-from sklearn.metrics import roc_auc_score
-param_grid = {
-    'alpha': [1e-4, 1e-3, 1e-2, 1e-1, 1e0, 1e1, 1e2, 1e3], # learning rate
+#testing
+def predict_category(text):
+    print("issue:" +text)
     
-    'loss': ['log','hinge'], # logistic regression,
-    'penalty': ['l2'],
-    'n_jobs': [-1]
-}
-paramGrid = ParameterGrid(param_grid)
+    data = {'created_at':
+        [text]}
+    test_df=pd.DataFrame(data)
+    
+    test_df['created_at']=test_df['created_at'].apply(remove_contractions)
+    ## Clean Data set
+    test_df['created_at'] =test_df['created_at'].apply(clean_dataset)
+    X_test  = vectorizer.transform(test_df['created_at'])
+    test_df['category']=clf.predict(X_test)
+    #print(y_pred)
+    #import pdb;pdb.set_trace()
+    print(test_df)
+     #converting to json
+    json=test_df.to_json()
+    print(json)
+#cred=credentials.Certificate('C:/Users/shruti yadav/Downloads/firebase-sdk.json')
+#firebase_admin.initialize_app(cred)
+#db=firestore.client()
 
-bestModel, bestScore, allModels, allScores = pf.bestFit(SGDClassifier, paramGrid,
-           X_train, y_train, X_test, y_test, 
-           metric = roc_auc_score, 
-           scoreLabel = "AUC")
+#users_ref=db.collection('whatsapp')
+response=requests.get("https://firestore.googleapis.com/v1/projects/cfgtest-36a9e/databases/(default)/documents/whatsapp?key=AIzaSyAKehNIq0yCW8_cfWNEpVqv8oG195wLupU")
+data=response.json()
+print(type(data))
+print(data)
+for item in data["documents"]:
+    print(item["fields"]["description"]["stringValue"])
+    predict_category(item["fields"]["description"]["stringValue"])
+    
+predict_category("Garbage is not desposed.")
+#import pdb;pdb.set_trace()
 
-print(bestModel, bestScore)
+
+
+
+
 
 
 
