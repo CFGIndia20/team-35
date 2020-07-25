@@ -18,10 +18,56 @@ This was a competitive 24-hour coding competition, where the goal was to deliver
 
 ## OUR GOAL
 The purpose of the web application was to offer the following:
-- Provide users with several options to easily post complaints
+- Provide users with several options to easily post complaints about civic issues
 - Reduce the need for installation of any extra apps
 - Make complaints easily trackable through Social Media Platforms
 - Categorize the complaints with high accuracy
 
 [Here is a video demo of the web app:](https://www.youtu.be/dQw4w9WgXcQ)
 
+
+
+## Technologies Used
+## Frontend:
+[Python 3.8.3](https://www.python.org/downloads/release/python-383/) <br />
+[HTML5](https://developer.mozilla.org/en-US/docs/Web/HTML) <br />
+[CSS (Bootstrap)](https://www.w3schools.com/bootstrap/bootstrap_ref_all_classes.asp) <br />
+[AngularJS](https://angularjs.org) <br />
+## Backend:
+[Flask](https://flask.palletsprojects.com/en/1.1.x/) <br />
+[Twilio](https://www.twilio.com/) <br />
+[Flask-SOcketIO](https://flask-socketio.readthedocs.io/en/latest/) 
+
+
+## Software Developers
+
+* **[Ujjwal Prakash](https://github.com/ujjwlprksh)** <br />
+* **[Kalander Shihab](https://github.com/kalandershihab)** <br />
+* **[Vidhi Khathuria](https://github.com/vidhikhathuria)** <br />
+* **[Shruti Yadav](https://github.com/shruti2307y)** <br />
+* **[Shabin KV](https://github.com/shabinkv3)** <br />
+* **[Dhwani Agarwal](https://github.com/Dhwani26)** <br />
+
+## CODE LICESNSE - MIT
+
+MIT Licence
+
+Copyright (c) 2020
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
