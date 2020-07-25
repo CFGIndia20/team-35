@@ -8,6 +8,8 @@ import { WhatsappComponent } from './whatsapp/whatsapp.component';
 import { InstagramComponent } from './instagram/instagram.component';
 import { TwitterComponent } from './twitter/twitter.component';
 import { CategoryComponent } from './category/category.component';
+import { HighchartsChartComponent } from 'highcharts-angular';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,13 @@ import { CategoryComponent } from './category/category.component';
     WhatsappComponent,
     InstagramComponent,
     TwitterComponent,
-    CategoryComponent
+    CategoryComponent,
+    HighchartsChartComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
