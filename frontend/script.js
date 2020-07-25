@@ -18,8 +18,8 @@ const changeTabs=(event,id)=>{
          for(i=0;i<myObj.length;i++)
          {
             if(myObj[i].fields.platform.stringValue == id){
-                var title = myObj[i].fields.description.stringValue.substring(20) + "...";
-                var desp = myObj[i].fields.description.stringValue.substring(20) + "...";
+                var title = myObj[i].fields.description.stringValue.substring(0,20) + "...";
+                var desp = myObj[i].fields.description.stringValue.substring(0,100) + "...";
                 text+=`<div class="col-lg-4 mb-4">
          <div class="card">
             <div class="card-header">
@@ -119,6 +119,7 @@ function onLoad() {
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var myObj = JSON.parse(this.responseText);
+            myObj = myObj.documents;
             console.log(myObj)
             if (myObj.length == 0) {
                 txt += "<p id='noMatch' style='text-align:center;display:none;'>No posts</p>"
