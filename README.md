@@ -13,3 +13,15 @@ This was a competitive 24-hour coding competition, where the goal was to deliver
 ## The Organization
 [Janaagraha](http://www.janaagraha.org/)
 <img alt="JP Morgan CODE FOR GOOD 2020" src="/IMAGES/janaagraha-logo.png" width="600" height="250">
+
+Janaagraha’s mission is to transform quality of life in India’s cities and towns.  They work with citizens to catalyse active citizenship in city neighbourhoods and with governments to institute reforms to city governance.  Civic Learning, Civic Participation and Advocacy and Reforms are Janaagraha’s three major strands of work to accomplish its mission.
+
+##OUR GOAL
+The purpose of the web application was to offer the following:
+- Provide users with several options to easily post complaints
+- Reduce the need for installation of any extra apps
+- Make complaints easily trackable through Social Media Platforms
+- Categorize the complaints with high accuracy
+
+[Here is a video demo of the web app:](https://www.youtu.be/dQw4w9WgXcQ)
+
