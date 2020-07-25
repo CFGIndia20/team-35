@@ -1,0 +1,384 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflows_webhook_sandbox_logic_name": {
+            "defaultValue": "webhook-sandbox-logic",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('workflows_webhook_sandbox_logic_name')]",
+            "location": "southindia",
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "triggers": {
+                        "manual": {
+                            "type": "Request",
+                            "kind": "Http",
+                            "inputs": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "actions": {
+                        "Compose": {
+                            "runAfter": {
+                                "Condition": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Compose",
+                            "inputs": "@outputs('Compose_3')"
+                        },
+                        "Condition": {
+                            "actions": {
+                                "Compose_2": {
+                                    "runAfter": {
+                                        "Compose_3": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "Compose",
+                                    "inputs": {
+                                        "fields": {
+                                            "date": {
+                                                "stringValue": "@{variables('EventDate')}"
+                                            },
+                                            "description": {
+                                                "stringValue": "@{variables('InputText')}"
+                                            },
+                                            "location": {
+                                                "stringValue": "Maratahalli, Bangalore"
+                                            },
+                                            "media_type": {
+                                                "stringValue": "@{variables('MediaType')}"
+                                            },
+                                            "media_url": {
+                                                "stringValue": "@{variables('MediaUrl')}"
+                                            },
+                                            "platform": {
+                                                "stringValue": "Whatsapp"
+                                            },
+                                            "sender": {
+                                                "stringValue": "@{variables('UserIdentifier')}"
+                                            },
+                                            "status": {
+                                                "stringValue": "Received"
+                                            },
+                                            "ticket_no": {
+                                                "stringValue": "#65793"
+                                            }
+                                        }
+                                    }
+                                },
+                                "Compose_3": {
+                                    "runAfter": {},
+                                    "type": "Compose",
+                                    "inputs": {
+                                        "date": "@{variables('EventDate')}",
+                                        "description": "@{variables('InputText')}",
+                                        "location": "Maratahalli, Bangalore",
+                                        "media_type": "@{variables('MediaType')}",
+                                        "media_url": "@{variables('MediaUrl')}",
+                                        "platform": "Whatsapp",
+                                        "sender": "@{variables('UserIdentifier')}",
+                                        "status": "Received",
+                                        "ticket_no": "#65793"
+                                    }
+                                },
+                                "HTTP": {
+                                    "runAfter": {
+                                        "Compose_2": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "Http",
+                                    "inputs": {
+                                        "body": "@outputs('Compose_2')",
+                                        "method": "POST",
+                                        "queries": {
+                                            "key": "AIzaSyAKehNIq0yCW8_cfWNEpVqv8oG195wLupU"
+                                        },
+                                        "uri": "https://firestore.googleapis.com/v1/projects/cfgtest-36a9e/databases/(default)/documents/whatsapp"
+                                    }
+                                }
+                            },
+                            "runAfter": {
+                                "For_each": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "expression": {
+                                "and": [
+                                    {
+                                        "not": {
+                                            "equals": [
+                                                "@variables('InputText')",
+                                                "@string('')"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "not": {
+                                            "equals": [
+                                                "@variables('UserIdentifier')",
+                                                "@string('')"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "not": {
+                                            "equals": [
+                                                "@variables('EventDate')",
+                                                "@string('')"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            },
+                            "type": "If"
+                        },
+                        "For_each": {
+                            "foreach": "@triggerBody()?['$formdata']",
+                            "actions": {
+                                "Condition_for_EventDate": {
+                                    "actions": {
+                                        "Set_variable_3": {
+                                            "runAfter": {},
+                                            "type": "SetVariable",
+                                            "inputs": {
+                                                "name": "EventDate",
+                                                "value": "@{items('For_each')['value']}"
+                                            }
+                                        }
+                                    },
+                                    "runAfter": {
+                                        "Condition_for_UserIdentifier": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "expression": {
+                                        "and": [
+                                            {
+                                                "equals": [
+                                                    "@items('For_each')['key']",
+                                                    "@string('EventDate')"
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    "type": "If"
+                                },
+                                "Condition_for_InputText": {
+                                    "actions": {
+                                        "Set_variable": {
+                                            "runAfter": {},
+                                            "type": "SetVariable",
+                                            "inputs": {
+                                                "name": "InputText",
+                                                "value": "@{items('For_each')['value']}"
+                                            }
+                                        }
+                                    },
+                                    "runAfter": {},
+                                    "expression": {
+                                        "and": [
+                                            {
+                                                "equals": [
+                                                    "@items('For_each')['key']",
+                                                    "@string('CurrentInput')"
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    "type": "If"
+                                },
+                                "Condition_for_Media": {
+                                    "actions": {
+                                        "Check_if_Image_url_exists": {
+                                            "actions": {
+                                                "Set_variable_4": {
+                                                    "runAfter": {},
+                                                    "type": "SetVariable",
+                                                    "inputs": {
+                                                        "name": "MediaUrl",
+                                                        "value": "@{json(items('For_each')['value'])?['media']?['url']}"
+                                                    }
+                                                },
+                                                "Set_variable_5": {
+                                                    "runAfter": {
+                                                        "Set_variable_4": [
+                                                            "Succeeded"
+                                                        ]
+                                                    },
+                                                    "type": "SetVariable",
+                                                    "inputs": {
+                                                        "name": "MediaType",
+                                                        "value": "@{json(items('For_each')['value'])?['media']?['type']}"
+                                                    }
+                                                }
+                                            },
+                                            "runAfter": {},
+                                            "expression": {
+                                                "and": [
+                                                    {
+                                                        "contains": [
+                                                            "@items('For_each')['value']",
+                                                            "@string('url')"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            "type": "If"
+                                        }
+                                    },
+                                    "runAfter": {
+                                        "Condition_for_EventDate": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "expression": {
+                                        "and": [
+                                            {
+                                                "equals": [
+                                                    "@items('For_each')['key']",
+                                                    "@string('Memory')"
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    "type": "If"
+                                },
+                                "Condition_for_UserIdentifier": {
+                                    "actions": {
+                                        "Set_variable_2": {
+                                            "runAfter": {},
+                                            "type": "SetVariable",
+                                            "inputs": {
+                                                "name": "UserIdentifier",
+                                                "value": "@{items('For_each')['value']}"
+                                            }
+                                        }
+                                    },
+                                    "runAfter": {
+                                        "Condition_for_InputText": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "expression": {
+                                        "and": [
+                                            {
+                                                "equals": [
+                                                    "@items('For_each')['key']",
+                                                    "@string('UserIdentifier')"
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    "type": "If"
+                                }
+                            },
+                            "runAfter": {
+                                "Initialize_variable_MediaType": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Foreach"
+                        },
+                        "Initialize_variable_EventDate": {
+                            "runAfter": {
+                                "Initialize_variable_UserIdentifier": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "EventDate",
+                                        "type": "string",
+                                        "value": "@{string('')}"
+                                    }
+                                ]
+                            }
+                        },
+                        "Initialize_variable_InputText": {
+                            "runAfter": {},
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "InputText",
+                                        "type": "string",
+                                        "value": "@{string('')}"
+                                    }
+                                ]
+                            }
+                        },
+                        "Initialize_variable_MediaType": {
+                            "runAfter": {
+                                "Initialize_variable_MediaUrl": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "MediaType",
+                                        "type": "string"
+                                    }
+                                ]
+                            }
+                        },
+                        "Initialize_variable_MediaUrl": {
+                            "runAfter": {
+                                "Initialize_variable_EventDate": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "MediaUrl",
+                                        "type": "string",
+                                        "value": "@{string('')}"
+                                    }
+                                ]
+                            }
+                        },
+                        "Initialize_variable_UserIdentifier": {
+                            "runAfter": {
+                                "Initialize_variable_InputText": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "UserIdentifier",
+                                        "type": "string",
+                                        "value": "@{string('')}"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {}
+            }
+        }
+    ]
+}
