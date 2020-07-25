@@ -18,7 +18,7 @@ db = firestore.client()
 arr = []
 
 end_cursor = ''
-tag = 'safdarjung'
+tag = 'janaagrah'
 page_count = 3
 
 for i in range(0, page_count):
@@ -33,7 +33,7 @@ for i in range(0, page_count):
         for item in edges:
             arr.append(item['node'])
        
-        time.sleep(2) # insurance to not reach a time limit
+        time.sleep(2) # To not reach time limit
 
     except KeyError:
         print("Not enough pages")
@@ -77,8 +77,6 @@ for item in arr:
         re.sub(r'[^\x00-\x7f]' , r'', description)
         name = data['graphql']['shortcode_media']['owner']['full_name']
         platform = 'Instagram'
-        #ticket_no = str(random.randomint(10000, 20000))
-        #status = 'Received'
         locations.append({'created_at': time, 'description': description, 'location': location, 'address': string,'image': base64_string, 'platform': platform, 'sender': name, 'status': status, 'ticket_no': ticket_no})
         doc_ref = db.collection('instagram').document(shortcode)
         doc_ref.set({'created_at': time, 'description': description, 'location': location, 'address': string,'image': base64_string, 'platform': platform, 'sender': name, 'status': status, 'ticket_no': ticket_no})
@@ -86,4 +84,4 @@ for item in arr:
         data = ''
 
 with open('locations.json', 'w') as outfile:
-    json.dump(locations, outfile, indent = 2) # save to json
+    json.dump(locations, outfile, indent = 2)
