@@ -16,7 +16,7 @@ This was a competitive 24-hour coding competition, where the goal was to deliver
 
 Janaagraha’s mission is to transform quality of life in India’s cities and towns.  They work with citizens to catalyse active citizenship in city neighbourhoods and with governments to institute reforms to city governance.  Civic Learning, Civic Participation and Advocacy and Reforms are Janaagraha’s three major strands of work to accomplish its mission.
 
-##OUR GOAL
+## OUR GOAL
 The purpose of the web application was to offer the following:
 - Provide users with several options to easily post complaints
 - Reduce the need for installation of any extra apps
