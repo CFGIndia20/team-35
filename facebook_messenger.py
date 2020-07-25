@@ -1,12 +1,25 @@
 import os, sys
 from flask import Flask, request
-# from utils import wit_response
 from pymessenger import Bot
 from pprint import pprint
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+from pprint import pprint
+from datetime import datetime
+import os
+# import uuid
+
 
 app = Flask(__name__)
-PAGE_ACCESS_TOKEN = "EAAG06SC6KRMBAHNmQJehtB5GNlMsZA8nX77IZCQYfPy4HLxPIVsIN2bmU2C3JeAkdEOzepQXkVuaJEjWw1qj8zGxbUWaJ0geB9BVNCUrswMwUL6kzkZCruwXsIBPWzkZAnbTrFnTWOhvJSCJbpclDoABplEg31rBbjrSsya1ZCgZDZD"
+PAGE_ACCESS_TOKEN = os.environ.get('PAGE_ACCESS_TOKEN')
 bot = Bot(PAGE_ACCESS_TOKEN)
+
+cred = credentials.Certificate('firebase-sdk.json')
+
+firebase_admin.initialize_app(cred)
+
+db = firestore.client()
 
 @app.route('/', methods = ['GET'])
 def verify():
@@ -19,7 +32,7 @@ def verify():
 @app.route('/', methods = ['POST'])
 def webhook():
 	data = request.get_json()
-	# log(data)
+	log(data)
 
 	if data['object'] == 'page':
 		for entry in data['entry']:
@@ -30,27 +43,35 @@ def webhook():
 				if messaging_event.get('message'):
 					if 'text' in messaging_event['message']:
 						message_text = messaging_event['message']['text']
+						if 'timestamp' in messaging_event:
+							timestamp = messaging_event['timestamp']
+							date_object = datetime.fromtimestamp(timestamp / 1000)
+							print('\n\n\n', date_object.date(), date_object.time(), '\n\n\n')
+						if 'nlp' in messaging_event['message']:
+							if 'entities' in messaging_event['message']['nlp']:
+								loc = messaging_event['message']['nlp']['entities']
+								location = list(loc.values())[0][0]['body']
+
+								print('\n\n\n', location, '\n\n\n')
+						# doc_id = uuid.uuid1()
+								doc_ref = db.collection('facebook').document(sender_id)
+								doc_ref.set({
+									'sender_id': sender_id,
+									'datetime' : str(date_object),
+									'location' : location,
+									'description' : message_text,
+									'status' : 'received',
+									'platform' : 'facebook-messenger',
+									})
+						response = "Thank you for taking your time to register this complaint. We are looking into the matter. Your ticket no. is 1234. You can track the status of your ticket here : facebook.com"
 					elif 'attachments' in messaging_event['message']:
 						img_url = messaging_event['message']['attachments'][0]['payload']['url']
+						response = "Thank you for taking your time to upload the pictures, we appreciate your efforts."
 					else:
 						message_text = 'no text'
-					response = "Thank you for taking your time to register this complaint. We are looking into the matter. Your ticket no. is 1234. You can track the status of your ticket here : facebook.com"
-					# entity, value = wit_response(message_text)
-					# print(entity, value)
-					# if entity == 'helpstart':
-					# 	response = "Please describe your problem in detail"
-					# elif entity == "help":
-					# 	response = "Please enter the location of the problem"
-					# elif entity == "location":
-					# 	response = "Ok I see you live in "+ str(value)
-					# if response == "None":
-					# 	response = "I didnt understaand you"
-					#response = message_text
-					print(messaging_event)
-					# try:
+						response = ''
+					pprint(messaging_event)
 					bot.send_text_message(sender_id, response)
-					# except:
-					# 	print("error")
 	return "ok", 200
 
 def log(message):
