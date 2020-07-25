@@ -1,4 +1,5 @@
 const changeTabs=(event,id)=>{
+    document.getElementById("dropdown").style.display = "";
     let text="";
     var xmlhttp = new XMLHttpRequest();
 
@@ -133,8 +134,8 @@ function onLoad() {
                     <img class="card-img-top" src="https://images.unsplash.com/photo-1593642532871-8b12e02d091c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60    " alt="Card image cap">
                     <div class="card-body">
                       <h5 class="card-title">${myObj[i].category}</h5>
-                      <p class="card-text">${myObj[i].description}</p>
-                      <p><i class="fas fa-map-marker-alt"></i> ${myObj[i].location}</p>
+                      <p class="card-text">${myObj[i].fields.description.stringValue}</p>
+                      <p><i class="fas fa-map-marker-alt"></i> ${myObj[i].fields.loction.stringValue}</p>
                     </div>
                   </div>
             <div class="col-sm-1"></div>`
@@ -148,4 +149,17 @@ function onLoad() {
     xmlhttp.open("GET", 'https://cfgtest-94f3c.firebaseio.com/whatsapp.json', true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send();
+}
+
+function onIndexLoad(){
+    document.getElementById("dropdown").style.display = "none";
+    var text = `<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Janaagraha</h1>
+      <p class="lead">Janaagraha works  with  the  citizens  to  catalyse  active  citizenship  in  city  neighbourhoods  and  withthe  governmentto  bring  about transformative change to city governance</p>
+    </div>
+  </div>`
+
+  document.getElementById("tab-content").innerHTML = text;
+
 }
