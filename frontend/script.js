@@ -1,7 +1,7 @@
-const changeTabs=(event,id)=>{
-    document.getElementById("dropdown").style.display = "";
-    let text="";
-    var xmlhttp = new XMLHttpRequest();
+const changeTabs = (event, id) => {
+  document.getElementById("dropdown").style.display = "";
+  let text = "";
+  var xmlhttp = new XMLHttpRequest();
 
   document.getElementById("tab-content").innerHTML = "Loading Reports...";
 
@@ -100,7 +100,7 @@ function filter() {
   xmlhttp.open("GET", `https://cfgtest-94f3c.firebaseio.com/${id}.json`, true);
   xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xmlhttp.send();
-};
+}
 
 function onLoad() {
   var queryString = decodeURIComponent(window.location.search);
@@ -116,41 +116,47 @@ function onLoad() {
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       var myObj = JSON.parse(this.responseText);
-    //   myObj = myObj.documents;
+      myObj = myObj.documents;
       console.log(myObj);
-    //   if (myObj.length == 0) {
-    //     txt += "<p id='noMatch' style='text-align:center;display:none;'>No posts</p>";
-    //     } else {
-    //     for (i = 0; i < myObj.length; i++) {
-    //       if (myObj[i].id == id) {
-    //         text += `<div class="col-sm-1"></div>
-    //                     <div class="col-sm-10 mb-4 card px-0" style="width: 18rem;">
-    //                         <img class="card-img-top" src="https://images.unsplash.com/photo-1593642532871-8b12e02d091c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60    " alt="Card image cap">
-    //                         <div class="card-body">
-    //                         <h5 class="card-title">${myObj[i].category}</h5>
-    //                         <p class="card-text">${myObj[i].fields.description.stringValue}</p>
-    //                         <p><i class="fas fa-map-marker-alt"></i> ${myObj[i].fields.loction.stringValue}</p>
-    //                         </div>
-    //                     </div>
-    //                 <div class="col-sm-1"></div>`;
-    //       }
-    //     }
-    // }
+      if (myObj.length == 0) {
+        txt +=
+          "<p id='noMatch' style='text-align:center;display:none;'>No posts</p>";
+      } else {
+        for (i = 0; i < myObj.length; i++) {
+          if (myObj[i].id == id) {
+            text += `<div class="col-sm-1"></div>
+                                      <div class="col-sm-10 mb-4 card px-0" style="width: 18rem;">
+                                          <img class="card-img-top" src="https://images.unsplash.com/photo-1593642532871-8b12e02d091c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60    " alt="Card image cap">
+                                          <div class="card-body">
+                                          <h5 class="card-title">${myObj[i].category}</h5>
+                                          <p class="card-text">${myObj[i].fields.description.stringValue}</p>
+                                          <p><i class="fas fa-map-marker-alt"></i> ${myObj[i].fields.loction.stringValue}</p>
+                                          </div>
+                                      </div>
+                                  <div class="col-sm-1"></div>`;
+          }
+        }
+      }
     }
-    xmlhttp.open("GET", `https://firestore.googleapis.com/v1/projects/cfgtest-36a9e/databases/(default)/documents/all-reports/${id}`, true);
-    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send();
-    }
+  };
+  xmlhttp.open(
+    "GET",
+    `https://firestore.googleapis.com/v1/projects/cfgtest-36a9e/databases/(default)/documents/all-reports`,
+    true
+  );
+  console.log("hey");
+  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xmlhttp.send();
 }
 
-function onIndexLoad(){
-    document.getElementById("dropdown").style.display = "none";
-    var text = `<div class="jumbotron jumbotron-fluid">
+function onIndexLoad() {
+  document.getElementById("dropdown").style.display = "none";
+  var text = `<div class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class="display-4">Janaagraha</h1>
       <p class="lead">Janaagraha works  with  the  citizens  to  catalyse  active  citizenship  in  city  neighbourhoods  and  withthe  governmentto  bring  about transformative change to city governance</p>
     </div>
-  </div>`
+  </div>`;
 
   document.getElementById("tab-content").innerHTML = text;
 }

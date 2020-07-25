@@ -8,6 +8,7 @@ import { WhatsappComponent } from './whatsapp/whatsapp.component';
 import { InstagramComponent } from './instagram/instagram.component';
 import { TwitterComponent } from './twitter/twitter.component';
 import { CategoryComponent } from './category/category.component';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { CategoryComponent } from './category/category.component';
     WhatsappComponent,
     InstagramComponent,
     TwitterComponent,
-    CategoryComponent
+    CategoryComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,
