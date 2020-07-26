@@ -1,9 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
-import { WhatsappComponent } from "./whatsapp/whatsapp.component";
-import { InstagramComponent } from "./instagram/instagram.component";
-import { TwitterComponent } from "./twitter/twitter.component";
+
 import { CategoryComponent } from "./category/category.component";
 import { DetailsComponent } from "./details/details.component";
 
@@ -15,14 +13,6 @@ const routes: Routes = [
   {
     path: "details",
     component: DetailsComponent,
-  },
-  {
-    path: "instagram",
-    component: InstagramComponent,
-  },
-  {
-    path: "twitter",
-    component: TwitterComponent,
   },
   {
     path: "category",
