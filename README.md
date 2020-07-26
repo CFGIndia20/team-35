@@ -36,8 +36,8 @@ The purpose of the web application was to offer the following:
 ## Backend:
 [Flask](https://flask.palletsprojects.com/en/1.1.x/) <br />
 [Twilio](https://www.twilio.com/) <br />
-[Firebase](https://firebase.google.com/) 
-[Azure logic apps] (https://azure.microsoft.com/en-in/services/logic-apps/?cdn=disable)
+[Firebase](https://firebase.google.com/) <br/>
+[Azure logic apps](https://azure.microsoft.com/en-in/services/logic-apps/?cdn=disable)
 
 
 ## Software Developers
