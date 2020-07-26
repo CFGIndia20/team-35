@@ -5,6 +5,10 @@ from facebook_bot import app, db, bot
 import os, sys
 import random
 from facebook_bot.utils import wit_response
+import base64
+import wget
+
+
 
 @app.route('/', methods = ['GET'])
 def verify():
@@ -56,8 +60,12 @@ def webhook():
 								response = "Thank you for taking your time to register this complaint. We are looking into the matter. Your ticket no. is " + ticket_id + " You can track the status of your ticket here : facebook.com"
 					elif 'attachments' in messaging_event['message']:
 						img_url = messaging_event['message']['attachments'][0]['payload']['url']
+						local_image_filename = wget.download(img_url, 'img.jpg')
+						with open("img.jpg", "rb") as img_file:
+						    my_string = base64.b64encode(img_file.read()).decode('utf-8')
+						print('\n\n\n',my_string, '\n\n\n')
 						doc_ref = db.collection('all-reports').document(sender_id)
-						doc_ref.update({'media_url': img_url})
+						doc_ref.update({'media_url': my_string})
 						response = "Thank you for taking your time to upload the pictures, we appreciate your efforts."
 					else:
 						message_text = 'no text'
