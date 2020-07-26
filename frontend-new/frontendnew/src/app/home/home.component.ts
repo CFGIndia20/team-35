@@ -26,6 +26,45 @@ export class HomeComponent implements OnInit {
     document.getElementById("whatsapp").click();
   }
 
+  showDash(event) {
+    const navlinks = document.getElementsByClassName("nav-item");
+    console.log(navlinks.length);
+    for (let i = 0; i < navlinks.length; i++) {
+      navlinks[i].className = navlinks[i].className.replace("active", "");
+    }
+    event.currentTarget.parentElement.className += " active";
+    const text = `<div id="header" class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Janaagraha</h1>
+      <p class="lead">Janaagraha works  with  the  citizens  to  catalyse  active  citizenship  in  city  neighbourhoods  and  with the  government to  bring  about transformative change to city governance</p>
+    </div>
+  </div>
+
+<div class="container-fluid">
+<div class="row">
+<div class="col-6">
+<highcharts-chart
+[Highcharts] = "highcharts"
+[options] = "chartOptions"
+style = "width: 100%; height: 400px; display: block;">
+</highcharts-chart>
+</div>
+
+
+
+<div class="col-6">
+<highcharts-chart
+[Highcharts] = "highcharts2"
+[options] = "chartOptions2"
+style = "width: 100%; height: 400px; display: block;">
+</highcharts-chart>
+</div>
+</div>
+</div>
+`;
+    document.getElementById("tab-content").innerHTML = text;
+  }
+
   getAllRecords() {
     return this.http
       .get(
@@ -67,8 +106,8 @@ export class HomeComponent implements OnInit {
         plotBorderWidth: null,
         plotShadow: false,
       },
-      title : {
-         text: 'Total complaints by category'   
+      title: {
+        text: "Total complaints by category",
       },
       tooltip: {
         pointFormat: "{series.name}: <b>{point.percentage:.2f}%</b>",
@@ -102,8 +141,8 @@ export class HomeComponent implements OnInit {
         plotBorderWidth: null,
         plotShadow: false,
       },
-      title : {
-         text: 'Total complaints by platform'   
+      title: {
+        text: "Total complaints by platform",
       },
       tooltip: {
         pointFormat: "{series.name}: <b>{point.percentage:.2f}%</b>",
