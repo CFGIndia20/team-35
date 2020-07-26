@@ -219,6 +219,7 @@ def predict_category(text):
      #converting to json
     json=test_df.to_json()
     print(json)
+    requests.post("https://firestore.googleapis.com/v1/projects/cfgtest-36a9e/databases/(default)/documents/instagram?key=AIzaSyAKehNIq0yCW8_cfWNEpVqv8oG195wLupU/json")
 #cred=credentials.Certificate('C:/Users/shruti yadav/Downloads/firebase-sdk.json')
 #firebase_admin.initialize_app(cred)
 #db=firestore.client()
@@ -235,6 +236,25 @@ for item in data["documents"]:
 predict_category("Garbage is not desposed.")
 #import pdb;pdb.set_trace()
 
+
+response=requests.get("https://firestore.googleapis.com/v1/projects/cfgtest-36a9e/databases/(default)/documents/facebook?key=AIzaSyAKehNIq0yCW8_cfWNEpVqv8oG195wLupU")
+data=response.json()
+print(type(data))
+print(data)
+for item in data["documents"]:
+    print(item["fields"]["description"]["stringValue"])
+    predict_category(item["fields"]["description"]["stringValue"])
+    
+    
+    
+response=requests.get("https://firestore.googleapis.com/v1/projects/cfgtest-36a9e/databases/(default)/documents/instagram?key=AIzaSyAKehNIq0yCW8_cfWNEpVqv8oG195wLupU")
+data=response.json()
+print(type(data))
+print(data)
+for item in data["documents"]:
+    print(item["fields"]["description"]["stringValue"])
+    predict_category(item["fields"]["description"]["stringValue"])
+    
 
 
 

@@ -4,7 +4,7 @@ from datetime import datetime
 from facebook_bot import app, db, bot
 import os, sys
 import random
-
+from facebook_bot.utils import wit_response
 
 @app.route('/', methods = ['GET'])
 def verify():
@@ -28,32 +28,36 @@ def webhook():
 				if messaging_event.get('message'):
 					if 'text' in messaging_event['message']:
 						message_text = messaging_event['message']['text']
+						response = ''
 						if 'timestamp' in messaging_event:
 							timestamp = messaging_event['timestamp']
 							date_object = datetime.fromtimestamp(timestamp / 1000)
-							print('\n\n\n', date_object.date(), date_object.time(), '\n\n\n')
+							# print('\n\n\n', date_object.date(), date_object.time(), '\n\n\n')
 						if 'nlp' in messaging_event['message']:
 							if 'entities' in messaging_event['message']['nlp']:
 								loc = messaging_event['message']['nlp']['entities']
 								location = list(loc.values())[0][0]['body']
 
-								print('\n\n\n', location, '\n\n\n')
-						
-								doc_ref = db.collection('facebook').document(sender_id)
-								ticket_id = ' '.join([str(random.randint(0, 999)).zfill(3) for _ in range(2)])
+								# print('\n\n\n', location, '\n\n\n')
+								category = wit_response(message_text)
+								doc_ref = db.collection('all-reports').document(sender_id)
+								ticket_id = ''.join([str(random.randint(0, 999)).zfill(3) for _ in range(2)])
 								doc_ref.set({
-									'sender_id': sender_id,
+									'sender': sender_id,
 									'date' : str(date_object),
 									'location' : location,
 									'description' : message_text,
 									'status' : 'received',
-									'platform' : 'facebook-messenger',
+									'platform' : 'facebook',
 									'ticket_no' : ticket_id,
-									'media_url' : ''
+									'media_url' : '',
+									'category' : category
 									})
-						response = "Thank you for taking your time to register this complaint. We are looking into the matter. Your ticket no. is 1234. You can track the status of your ticket here : facebook.com"
+								response = "Thank you for taking your time to register this complaint. We are looking into the matter. Your ticket no. is " + ticket_id + " You can track the status of your ticket here : facebook.com"
 					elif 'attachments' in messaging_event['message']:
 						img_url = messaging_event['message']['attachments'][0]['payload']['url']
+						doc_ref = db.collection('all-reports').document(sender_id)
+						doc_ref.update({'media_url': img_url})
 						response = "Thank you for taking your time to upload the pictures, we appreciate your efforts."
 					else:
 						message_text = 'no text'

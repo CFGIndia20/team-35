@@ -1,4 +1,4 @@
-<h1  align="center" style="text-align: center;"><span  align="center" style="color: #ff0000;"><strong><span align="center" style="color: #FF0000;"> JP MORGAN CODE FOR GOOD 2020 - TEAM 35
+<h1  align="center" style="text-align: center;"><span  align="center" style="color: #ff0000;"><strong><span align="center" style="color: #FF0000;"> JP MORGAN CODE FOR GOOD INDIA 2020 - TEAM 35
 </span> </strong></span></h1>
 <p style="text-align: center;">&nbsp;</p>
 <p align="center">
@@ -27,20 +27,16 @@ The purpose of the web application was to offer the following:
 
 
 
-
-
 ## Technologies Used
 ## Frontend:
 [Python 3.8.3](https://www.python.org/downloads/release/python-383/) <br />
 [HTML5](https://developer.mozilla.org/en-US/docs/Web/HTML) <br />
 [CSS (Bootstrap)](https://www.w3schools.com/bootstrap/bootstrap_ref_all_classes.asp) <br />
 [AngularJS](https://angularjs.org) <br />
-[socketIO](https://socket.io/) <br />
 ## Backend:
 [Flask](https://flask.palletsprojects.com/en/1.1.x/) <br />
-[Flask-Login](https://flask-login.readthedocs.io/en/latest/) <br />
-[Flask-Sqlachemy](http://flask-sqlalchemy.pocoo.org/2.3/) <br />
-[Flask-SOcketIO](https://flask-socketio.readthedocs.io/en/latest/) 
+[Twilio](https://www.twilio.com/) <br />
+[Firebase](https://firebase.google.com/) 
 
 
 ## Software Developers
