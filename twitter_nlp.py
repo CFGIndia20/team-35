@@ -30,12 +30,12 @@ df.dropna(axis=0,how='any',inplace=True)
 df=df.reset_index()
 df=df.replace([np.inf,-np.inf],np.nan)
 print(df['created_at'].isnull().sum())
-print(df.shape)
-print(df.head())
-labels=df.category_id
+print(df.shape)  #Shape of data
+print(df.head())   #printing first few values
+labels=df.category_id  #define labels as category_id(label class in our dataset)
 print("Labels head")
 print(labels.head())
-print(df[df.isin([np.nan,np.inf,-np.inf]).any(1)])
+print(df[df.isin([np.nan,np.inf,-np.inf]).any(1)])   #check for nan ir infinity values
 print(df.shape)
 print(df.head(300))
 contractions = { 
@@ -114,12 +114,12 @@ contractions = {
 "you're": "you are",
 "thx"   : "thanks"
 }
-def remove_contractions(text):
+def remove_contractions(text):      #removing contractions(pre-processing)
     return contractions[text.lower()] if text.lower() in contractions.keys() else text
 df['created_at']=df['created_at'].apply(remove_contractions)
 print(df.head())
 
-def clean_dataset(text):
+def clean_dataset(text):            #cleaning dataset
     # Remove hashtag while keeping hashtag text
     text = re.sub(r'#','', text)
     # Remove HTML special entities (e.g. &amp;)
@@ -170,7 +170,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 vectorizer = CountVectorizer()
 vectorizer.fit(x_train)
 d=df.replace([np.inf,-np.inf],np.nan)
-X_train = vectorizer.transform(x_train)
+X_train = vectorizer.transform(x_train)     #tf-idf matrix transformation
 X_test  = vectorizer.transform(x_test)
 
 
@@ -188,7 +188,7 @@ X_test  = vectorizer.transform(x_test)
 
 
 from sklearn.naive_bayes import MultinomialNB
-clf = MultinomialNB().fit(X_train, y_train)
+clf = MultinomialNB().fit(X_train, y_train)             #using the multinomialNB classifier
 predicted = clf.predict(X_test)
 print(np.mean(predicted == y_test))
 from sklearn.linear_model import SGDClassifier
@@ -219,7 +219,7 @@ def predict_category(text):
      #converting to json
     json=test_df.to_json()
     print(json)
-    requests.post("https://firestore.googleapis.com/v1/projects/cfgtest-36a9e/databases/(default)/documents/instagram?key=AIzaSyAKehNIq0yCW8_cfWNEpVqv8oG195wLupU/json")
+    requests.post("https://firestore.googleapis.com/v1/projects/cfgtest-36a9e/databases/(default)/documents/instagram?key=AIzaSyAKehNIq0yCW8_cfWNEpVqv8oG195wLupU",data={'category':test_df['category']})
 #cred=credentials.Certificate('C:/Users/shruti yadav/Downloads/firebase-sdk.json')
 #firebase_admin.initialize_app(cred)
 #db=firestore.client()
@@ -244,18 +244,20 @@ print(data)
 for item in data["documents"]:
     print(item["fields"]["description"]["stringValue"])
     predict_category(item["fields"]["description"]["stringValue"])
-    
+
     
     
 response=requests.get("https://firestore.googleapis.com/v1/projects/cfgtest-36a9e/databases/(default)/documents/instagram?key=AIzaSyAKehNIq0yCW8_cfWNEpVqv8oG195wLupU")
 data=response.json()
 print(type(data))
 print(data)
-for item in data["documents"]:
-    print(item["fields"]["description"]["stringValue"])
-    predict_category(item["fields"]["description"]["stringValue"])
+#for item in data["documents"]:
+   # print(item["fields"]["description"]["stringValue"])
+   # predict_category(item["fields"]["description"]["stringValue"])
     
-
+for i in range(1, len(data["documents"])):
+    print(data["documents"][i]["fields"]["description"]["stringValue"])
+    predict_category(data["documents"][i]["fields"]["description"]["stringValue"])
 
 
 
