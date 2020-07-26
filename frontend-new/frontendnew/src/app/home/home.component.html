@@ -22,8 +22,14 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#" id="dashboard" (click)="showDash($event)"
-          >DashBoard</a
+        <strong
+          ><a
+            class="nav-link"
+            href="#"
+            id="dashboard"
+            (click)="showDash($event)"
+            >DashBoard</a
+          ></strong
         >
       </li>
       <li class="nav-item">
@@ -94,7 +100,7 @@
   </div>
 </div>
 <section id="content" style="margin-top: 3%;">
-  <div class="container">
+  <div class="container" style="margin-bottom: 10%;">
     <div class="row" id="tab-content"></div>
   </div>
 </section>
@@ -108,15 +114,14 @@
       >
       </highcharts-chart>
     </div>
-  </div>
-
-  <div *ngIf="showPie" class="col-6">
-    <highcharts-chart
-      [Highcharts]="highcharts2"
-      [options]="chartOptions2"
-      style="width: 100%; height: 400px; display: inline-block;"
-    >
-    </highcharts-chart>
+    <div *ngIf="showPie" class="col-6">
+      <highcharts-chart
+        [Highcharts]="highcharts2"
+        [options]="chartOptions2"
+        style="width: 100%; height: 400px; display: inline-block;"
+      >
+      </highcharts-chart>
+    </div>
   </div>
 </div>
 <!-- <div id="header" class="jumbotron jumbotron-fluid">

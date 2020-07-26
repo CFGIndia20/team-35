@@ -172,7 +172,6 @@ export class HomeComponent implements OnInit {
   changeTabs = (event, id) => {
     this.showPie = false;
     this.activeTab = id;
-    document.getElementById("dropdown").style.display = "";
     let text = "";
     var xmlhttp = new XMLHttpRequest();
 
