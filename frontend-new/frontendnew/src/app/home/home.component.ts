@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
   getAllRecords() {
     return this.http
       .get(
-        "https://firestore.googleapis.com/v1/projects/cfgtest-36a9e/databases/(default)/documents/whatsapp?key=AIzaSyAKehNIq0yCW8_cfWNEpVqv8oG195wLupU"
+        "https://firestore.googleapis.com/v1/projects/cfgtest-36a9e/databases/(default)/documents/whatsapp"
       )
       .subscribe((data: any) => {
         this.allRecords = data.documents;
