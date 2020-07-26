@@ -223,7 +223,7 @@ def predict_category(text):
     json_string=test_df.to_json()
     #print(json)
     json_obj = json.loads(json_string)
-    return json_obj["category"]
+    return str(int(json_obj["category"]["0"]))
     #requests.post("https://firestore.googleapis.com/v1/projects/cfgtest-36a9e/databases/(default)/documents/instagram?key=AIzaSyAKehNIq0yCW8_cfWNEpVqv8oG195wLupU",data={'category':test_df['category']})
 
 #users_ref=db.collection('whatsapp')
