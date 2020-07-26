@@ -23,7 +23,7 @@ The purpose of the web application was to offer the following:
 - Make complaints easily trackable through Social Media Platforms
 - Categorize the complaints with high accuracy
 
-[Here is a video demo of the web app:](https://www.youtu.be/dQw4w9WgXcQ)
+[Here is a video demo of the web app:](https://www.youtube.com/watch?v=fsamdwO6oPs)
 
 
 
