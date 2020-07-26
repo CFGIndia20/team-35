@@ -36,13 +36,14 @@ The purpose of the web application was to offer the following:
 ## Backend:
 [Flask](https://flask.palletsprojects.com/en/1.1.x/) <br />
 [Twilio](https://www.twilio.com/) <br />
-[Firebase](https://firebase.google.com/) 
+[Firebase](https://firebase.google.com/) <br/>
+[Azure logic apps](https://azure.microsoft.com/en-in/services/logic-apps/?cdn=disable)
 
 
 ## Software Developers
 
 * **[Ujjwal Prakash](https://github.com/ujjwlprksh)** <br />
-* **[Kalander Shihab](https://github.com/kalandershihab)** <br />
+* **[Mohammed Kalander Shihab](https://github.com/kalandershihab)** <br />
 * **[Vidhi Khathuria](https://github.com/vidhikhathuria)** <br />
 * **[Shruti Yadav](https://github.com/shruti2307y)** <br />
 * **[Shabin KV](https://github.com/shabinkv3)** <br />
