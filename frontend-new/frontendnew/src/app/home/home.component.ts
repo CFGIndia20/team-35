@@ -9,6 +9,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class HomeComponent implements OnInit {
   @ViewChild("category", { static: true }) category;
+  showPie = true;
   allRecords: any = [];
   pieChartData: any = [];
   pieChartData2: any = [];
@@ -23,10 +24,11 @@ export class HomeComponent implements OnInit {
     this.getAllRecords();
   }
   ngAfterViewInit() {
-    document.getElementById("whatsapp").click();
+    document.getElementById("dashboard").click();
   }
 
   showDash(event) {
+    this.showPie = true;
     const navlinks = document.getElementsByClassName("nav-item");
     console.log(navlinks.length);
     for (let i = 0; i < navlinks.length; i++) {
@@ -38,30 +40,27 @@ export class HomeComponent implements OnInit {
       <h1 class="display-4">Janaagraha</h1>
       <p class="lead">Janaagraha works  with  the  citizens  to  catalyse  active  citizenship  in  city  neighbourhoods  and  with the  government to  bring  about transformative change to city governance</p>
     </div>
-  </div>
+  </div>`;
 
-<div class="container-fluid">
-<div class="row">
-<div class="col-6">
-<highcharts-chart
-[Highcharts] = "highcharts"
-[options] = "chartOptions"
-style = "width: 100%; height: 400px; display: block;">
-</highcharts-chart>
-</div>
+    // <div class="container-fluid">
+    // <div class="row">
+    // <div class="col-6">
+    // <highcharts-chart
+    // [Highcharts] = "highcharts"
+    // [options] = "chartOptions"
+    // style = "width: 100%; height: 400px; display: block;">
+    // </highcharts-chart>
+    // </div>
 
-
-
-<div class="col-6">
-<highcharts-chart
-[Highcharts] = "highcharts2"
-[options] = "chartOptions2"
-style = "width: 100%; height: 400px; display: block;">
-</highcharts-chart>
-</div>
-</div>
-</div>
-`;
+    // <div class="col-6">
+    // <highcharts-chart
+    // [Highcharts] = "highcharts2"
+    // [options] = "chartOptions2"
+    // style = "width: 100%; height: 400px; display: block;">
+    // </highcharts-chart>
+    // </div>
+    // </div>
+    // </div>
     document.getElementById("tab-content").innerHTML = text;
   }
 
@@ -171,6 +170,7 @@ style = "width: 100%; height: 400px; display: block;">
   }
 
   changeTabs = (event, id) => {
+    this.showPie = false;
     this.activeTab = id;
     document.getElementById("dropdown").style.display = "";
     let text = "";

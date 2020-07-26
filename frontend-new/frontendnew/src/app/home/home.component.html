@@ -22,7 +22,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#" id="showDash" (click)="showDash($event)"
+        <a class="nav-link" href="#" id="dashboard" (click)="showDash($event)"
           >DashBoard</a
         >
       </li>
@@ -67,7 +67,7 @@
   </div>
 </nav>
 
-<div class="container mt-4" id="dropdown">
+<div *ngIf="!showPie" class="container mt-4" id="dropdown">
   <div class="row">
     <div class="text-center col-md-10">
       <div class="row">
@@ -98,6 +98,27 @@
     <div class="row" id="tab-content"></div>
   </div>
 </section>
+<div class="container-fluid" *ngIf="showPie">
+  <div class="row">
+    <div class="col-6">
+      <highcharts-chart
+        [Highcharts]="highcharts"
+        [options]="chartOptions"
+        style="width: 100%; height: 400px; display: inline-block;"
+      >
+      </highcharts-chart>
+    </div>
+  </div>
+
+  <div *ngIf="showPie" class="col-6">
+    <highcharts-chart
+      [Highcharts]="highcharts2"
+      [options]="chartOptions2"
+      style="width: 100%; height: 400px; display: inline-block;"
+    >
+    </highcharts-chart>
+  </div>
+</div>
 <!-- <div id="header" class="jumbotron jumbotron-fluid">
                              <div class="container">
                                <h1 class="display-4">Janaagraha</h1>
